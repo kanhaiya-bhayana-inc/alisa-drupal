@@ -1,0 +1,74 @@
+<?php declare(strict_types = 1);
+
+/**
+ * @file
+ * Install, update and uninstall functions for the alisa module.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function alisa_install(): void {
+  \Drupal::messenger()->addStatus(t('Module alisa has been installed.'));
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function alisa_uninstall(): void {
+  \Drupal::messenger()->addStatus(t('Module alisa has been uninstalled.'));
+}
+
+function alisa_schema(){
+  $schema['alisa']=[
+    'description' => 'Table description',
+    'fields' => [
+      'id' =>[
+        'type' => 'serial',
+        'not null' => TRUE,
+        'description' => 'Primary Key: Unique record ID.',
+      ],
+      'status' => [
+        'description' => 'Boolean indicating whether this record is active.',
+        'type' => 'int',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+        'default' => 0,
+        'size' => 'tiny',
+      ],
+      'firstName' =>[
+        'type' =>'varchar_ascii',
+        'length' => 30,
+        'not null' => TRUE,
+        'default' =>'',
+        'description' => 'User first name...',
+      ],
+      'lastName' =>[
+        'type' =>'varchar_ascii',
+        'length' => 30,
+        'not null' => TRUE,
+        'default' =>'',
+        'description' => 'User last name...',
+      ],
+      'email' =>[
+        'type' =>'varchar_ascii',
+        'length' => 50,
+        'not null' => TRUE,
+        'default' =>'',
+        'description' => 'User email...',
+      ],
+      'phone' =>[
+        'type' =>'varchar_ascii',
+        'length' => 10,
+        'not null' => TRUE,
+        'default' =>'',
+        'description' => 'User phone number...',
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'status' => ['status'],
+    ],
+  ];
+  return $schema;
+}
